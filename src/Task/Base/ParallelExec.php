@@ -76,7 +76,13 @@ class ParallelExec extends BaseTask implements CommandInterface, PrintedInterfac
         $progress->display();
         $this->startTimer();
         while (true) {
+            $this->getOutput()->writeln(
+                "<fg=white;bg=magenta>".
+                "\n////////////////////////////////////////////////////////////////////////////////\n".
+                "</fg=white;bg=magenta>"
+            );
             foreach ($running as $k => $process) {
+                $this->getOutput()->writeln($process->getOutput(), OutputInterface::OUTPUT_RAW);
                 try {
                     $process->checkTimeout();
                 } catch (ProcessTimedOutException $e) {
